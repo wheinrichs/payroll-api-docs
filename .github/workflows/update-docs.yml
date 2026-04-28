@@ -1,0 +1,26 @@
+name: Pull and update docs
+on: 
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  
+jobs:
+  pull-latest-doc:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+      - name: Fetch latest OpenAPI spec from source repo
+        run: |
+          curl -f -o openapi.json https://healthcarepayrollservice.onrender.com/swagger/v1/swagger.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add openapi.json
+          git diff --cached --quiet || (git commit -m "Update OpenAPI spec" && git push)
