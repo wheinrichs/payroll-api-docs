@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Debug</title>
-    <script>
-      console.log("HEAD script ran");
-    </script>
+    <title>Docs</title>
     <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
   </head>
   <body style="margin:0">
-    <h1>PAGE IS LOADING</h1>
-    <script>
-      console.log("BODY script ran");
-    </script>
+    <div id="redoc-container"></div>
 
-    <redoc spec-url="https://petstore.swagger.io/v2/swagger.json"></redoc>
+    <script>
+      window.onload = function () {
+        Redoc.init(
+          "https://petstore.swagger.io/v2/swagger.json",
+          {},
+          document.getElementById("redoc-container")
+        );
+      };
+    </script>
   </body>
 </html>
