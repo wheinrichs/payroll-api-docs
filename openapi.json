@@ -133,7 +133,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully logged in the user",
+            "description": "Successfully logged in the user.",
             "content": {
               "text/plain": {
                 "schema": {
