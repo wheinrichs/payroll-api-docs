@@ -1,0 +1,1303 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "PayrollBackendApi",
+    "description": "Backend API for Payroll",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/AuditLog": {
+      "get": {
+        "tags": [
+          "AuditLog"
+        ],
+        "summary": "Retrieves all audit logs in the system.",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved audit logs.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogDTO"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. A valid JWT token is required."
+          }
+        }
+      }
+    },
+    "/api/AuditLog/{entityId}": {
+      "get": {
+        "tags": [
+          "AuditLog"
+        ],
+        "summary": "Retrieves audit logs associated with a specific entity.",
+        "parameters": [
+          {
+            "name": "entityId",
+            "in": "path",
+            "description": "The unique identifier of the entity whose audit logs are requested.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved audit logs for the entity.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogDTO"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. A valid JWT token is required."
+          },
+          "400": {
+            "description": "Invalid entity ID format."
+          }
+        }
+      }
+    },
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Attempts to login a user with a passed in PayrollBackendProject.Application.DTO.LoginRequestDTO object.",
+        "requestBody": {
+          "description": "A DTO object containing an email and password.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged in the user",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Failed log in - wrong username or password."
+          }
+        }
+      }
+    },
+    "/api/Auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Registers a new user account with the specified role.",
+        "requestBody": {
+          "description": "Contains email, password, name, and role information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully created.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid role or signup failure."
+          }
+        }
+      }
+    },
+    "/api/Clinicians": {
+      "get": {
+        "tags": [
+          "Clinicians"
+        ],
+        "summary": "Retrieves all clinicians.",
+        "responses": {
+          "200": {
+            "description": "Returns the list of clinicians.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicianResponseDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicianResponseDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClinicianResponseDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Clinicians"
+        ],
+        "summary": "Creates a new clinician.",
+        "requestBody": {
+          "description": "The clinician data to create.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicianRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicianRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClinicianRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Returns the newly created clinician."
+          },
+          "400": {
+            "description": "If the request data is invalid."
+          }
+        }
+      }
+    },
+    "/api/Clinicians/search": {
+      "get": {
+        "tags": [
+          "Clinicians"
+        ],
+        "summary": "Searches for a clinician by last name.",
+        "parameters": [
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "The last name of the clinician.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the matching clinician or null if not found.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If the query parameter is missing or invalid."
+          }
+        }
+      }
+    },
+    "/api/Clinicians/{id}": {
+      "get": {
+        "tags": [
+          "Clinicians"
+        ],
+        "summary": "Retrieves a clinician by their unique identifier.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the clinician.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the clinician.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianResponseDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If the clinician is not found."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Clinicians"
+        ],
+        "summary": "Deletes a clinician by their unique identifier.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the clinician to delete.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Clinician successfully deleted."
+          },
+          "404": {
+            "description": "If the clinician is not found."
+          },
+          "403": {
+            "description": "If the user is not authorized to perform this action."
+          }
+        }
+      }
+    },
+    "/api/Import/upload": {
+      "post": {
+        "tags": [
+          "Import"
+        ],
+        "summary": "Uploads a CSV file and initiates background processing.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Returns the batch ID for tracking the import process."
+          },
+          "400": {
+            "description": "If the file is not a valid CSV."
+          }
+        }
+      }
+    },
+    "/api/Import/{batchId}": {
+      "get": {
+        "tags": [
+          "Import"
+        ],
+        "summary": "Retrieves the status and results of a previously uploaded batch.",
+        "parameters": [
+          {
+            "name": "batchId",
+            "in": "path",
+            "description": "The unique identifier of the import batch.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the batch status and results.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If the batch is not found."
+          }
+        }
+      }
+    },
+    "/api/Import/UnresolvedClinicianPayments": {
+      "get": {
+        "tags": [
+          "Import"
+        ],
+        "summary": "Retrieves all payment line items that could not be matched to a clinician.",
+        "responses": {
+          "200": {
+            "description": "Returns the list of unresolved payment line items.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentLineItemDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentLineItemDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentLineItemDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Import/ResolveCliniciansForPayments": {
+      "post": {
+        "tags": [
+          "Import"
+        ],
+        "summary": "Attempts to resolve clinician matches for unresolved payment line items.",
+        "responses": {
+          "200": {
+            "description": "Returns the results of the matching operation.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianMatchResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianMatchResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicianMatchResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Me/statements": {
+      "get": {
+        "tags": [
+          "Me"
+        ],
+        "summary": "Retrieves all pay statements for the currently authenticated clinician.",
+        "responses": {
+          "200": {
+            "description": "Returns the list of pay statements.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayStatementDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayStatementDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayStatementDTO"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "If the user is not authenticated."
+          }
+        }
+      }
+    },
+    "/api/PayRun": {
+      "post": {
+        "tags": [
+          "PayRun"
+        ],
+        "summary": "Generates a new pay run for the specified date range.",
+        "requestBody": {
+          "description": "The request containing the pay run date range.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayRunRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayRunRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayRunRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the generated pay run.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayRunResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayRunResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayRunResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If the pay run could not be generated."
+          }
+        }
+      }
+    },
+    "/api/PayRun/{payRunGuid}": {
+      "get": {
+        "tags": [
+          "PayRun"
+        ],
+        "summary": "Retrieves all pay statements associated with a specific pay run.",
+        "parameters": [
+          {
+            "name": "payRunGuid",
+            "in": "path",
+            "description": "The unique identifier of the pay run.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the list of pay statements.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayStatementDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayStatementDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayStatementDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/approveRun/{payRunGuid}/approve": {
+      "post": {
+        "tags": [
+          "PayRun"
+        ],
+        "summary": "Approves a pay run.",
+        "parameters": [
+          {
+            "name": "payRunGuid",
+            "in": "path",
+            "description": "The unique identifier of the pay run to approve.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "The pay run was successfully approved."
+          },
+          "401": {
+            "description": "If the user is not authenticated."
+          },
+          "403": {
+            "description": "If the user does not have permission to approve."
+          }
+        }
+      }
+    },
+    "/approveStatement/{payStatementGuid}/approve": {
+      "post": {
+        "tags": [
+          "PayRun"
+        ],
+        "summary": "Approves an individual pay statement.",
+        "parameters": [
+          {
+            "name": "payStatementGuid",
+            "in": "path",
+            "description": "The unique identifier of the pay statement to approve.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "The pay statement was successfully approved."
+          },
+          "401": {
+            "description": "If the user is not authenticated."
+          },
+          "403": {
+            "description": "If the user does not have permission to approve."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApprovalStateEnum": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "AuditLogDTO": {
+        "type": "object",
+        "properties": {
+          "entityName": {
+            "type": "string",
+            "description": "The name of the entity that was modified (e.g., \"Clinician\", \"PayRun\").",
+            "nullable": true
+          },
+          "entityId": {
+            "type": "string",
+            "description": "The unique identifier of the entity that was modified.",
+            "format": "uuid"
+          },
+          "action": {
+            "type": "string",
+            "description": "The type of action performed on the entity (e.g., \"CREATE\", \"UPDATE\", \"DELETE\").",
+            "nullable": true
+          },
+          "actorId": {
+            "type": "string",
+            "description": "The identifier of the user or system that performed the action.",
+            "nullable": true
+          },
+          "timestampUtc": {
+            "type": "string",
+            "description": "The UTC timestamp when the action occurred.",
+            "format": "date-time"
+          },
+          "oldValuesJson": {
+            "type": "string",
+            "description": "A JSON representation of the entity's state before the change.",
+            "nullable": true
+          },
+          "newValuesJson": {
+            "type": "string",
+            "description": "A JSON representation of the entity's state after the change.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents an audit log entry capturing a change made to a system entity."
+      },
+      "ClinicianMatchResult": {
+        "type": "object",
+        "properties": {
+          "totalUnmatchedEntries": {
+            "type": "integer",
+            "description": "Gets or sets the total number of payment line items that initially had no matched clinician.",
+            "format": "int32"
+          },
+          "failedRows": {
+            "type": "integer",
+            "description": "Gets or sets the number of rows that failed to resolve during the matching process.",
+            "format": "int32"
+          },
+          "resolvedRows": {
+            "type": "integer",
+            "description": "Gets or sets the number of rows successfully matched to a clinician.",
+            "format": "int32"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or sets the list of errors encountered while attempting to resolve clinician matches.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of attempting to match clinicians to unresolved payment line items."
+      },
+      "ClinicianRequestDTO": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets the clinician's first name."
+          },
+          "lastName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets the clinician's last name."
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets the clinician's email address.",
+            "format": "email"
+          },
+          "hasPsychToday": {
+            "type": "boolean",
+            "description": "Gets a value indicating whether the clinician provides psychiatric services today."
+          },
+          "costShare": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number",
+            "description": "Gets the clinician's cost share value used for payroll calculations.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the data required to create a new clinician."
+      },
+      "ClinicianResponseDTO": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "Gets the clinician's first name.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Gets the clinician's last name.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "email": {
+            "type": "string",
+            "description": "Gets the clinician's email address.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Gets the unique identifier for the clinician.",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "hasPsychToday": {
+            "type": "boolean",
+            "description": "Gets a value indicating whether the clinician provides psychiatric services today.",
+            "readOnly": true
+          },
+          "costShare": {
+            "type": "number",
+            "description": "Gets the clinician's cost share value used for payroll calculations.",
+            "format": "double",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents clinician data returned by the API."
+      },
+      "LoginRequestDTO": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The email that the user has associated with the account for login.",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "description": "The password the user has associated with the account for login.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a Login request."
+      },
+      "LoginResponseDTO": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The authenticated user's email address.",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "The role assigned to the user (e.g., Admin, Clinician).",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The user's first name.",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The user's last name.",
+            "nullable": true
+          },
+          "token": {
+            "type": "string",
+            "description": "A JSON Web Token (JWT) used for authenticating future API requests.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the response returned after a successful authentication request."
+      },
+      "PayRunRequestDTO": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "description": "Gets or sets the start date of the pay run period.",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Gets or sets the end date of the pay run period.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the data required to create a new pay run."
+      },
+      "PayRunResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets the unique identifier for the pay run.",
+            "format": "uuid"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Gets the start date of the pay run period.",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Gets the end date of the pay run period.",
+            "format": "date-time"
+          },
+          "totalApplied": {
+            "type": "number",
+            "description": "Gets the total applied payment amount before adjudication.",
+            "format": "double"
+          },
+          "totalAdjudicated": {
+            "type": "number",
+            "description": "Gets the total adjudicated payment amount after processing adjustments.",
+            "format": "double"
+          },
+          "statementTotals": {
+            "type": "number",
+            "description": "Gets the sum of all pay statement totals associated with this pay run.",
+            "format": "double"
+          },
+          "generationStatus": {
+            "$ref": "#/components/schemas/PayRunStatusEnum"
+          },
+          "approvalStatus": {
+            "$ref": "#/components/schemas/ApprovalStateEnum"
+          },
+          "approvedRejectedBy": {
+            "type": "string",
+            "description": "Gets the identifier of the user who approved or rejected the pay run.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "approvedRejectedOn": {
+            "type": "string",
+            "description": "Gets the timestamp when the pay run was approved or rejected.",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a pay run returned by the API, including summary totals and status information."
+      },
+      "PayRunStatusEnum": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "PayStatementDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets the unique identifier for the pay statement.",
+            "format": "uuid"
+          },
+          "clinician": {
+            "$ref": "#/components/schemas/ClinicianResponseDTO"
+          },
+          "lineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentLineItemDTO"
+            },
+            "description": "Gets the list of payment line items included in this pay statement.",
+            "nullable": true
+          },
+          "payRun": {
+            "type": "string",
+            "description": "Gets the identifier of the pay run associated with this statement.",
+            "format": "uuid"
+          },
+          "totalPayment": {
+            "type": "number",
+            "description": "Gets the total payment amount before adjustments.",
+            "format": "double"
+          },
+          "costShareAdjustedPayment": {
+            "type": "number",
+            "description": "Gets the total payment amount after applying cost share adjustments.",
+            "format": "double"
+          },
+          "totalAdjustment": {
+            "type": "number",
+            "description": "Gets the total adjustment amount applied to the payment.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a pay statement for a clinician within a specific pay run."
+      },
+      "PaymentLineItemDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets or sets the unique identifier for the payment line item.",
+            "format": "uuid"
+          },
+          "paymentAmount": {
+            "type": "number",
+            "description": "Gets or sets the primary payment amount for the line item.",
+            "format": "double"
+          },
+          "adjustmentAmount": {
+            "type": "number",
+            "description": "Gets or sets any adjustment amount applied to the payment.",
+            "format": "double"
+          },
+          "cptCode": {
+            "type": "string",
+            "description": "Gets or sets the CPT (Current Procedural Terminology) code associated with the service.",
+            "nullable": true
+          },
+          "patientId": {
+            "type": "string",
+            "description": "Gets or sets the identifier for the patient associated with this payment.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a payment line item returned by the API."
+      },
+      "SignUpRequestDTO": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "password",
+          "role"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user's email address.",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 6,
+            "type": "string",
+            "description": "The user's password."
+          },
+          "firstName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user's first name."
+          },
+          "lastName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user's last name."
+          },
+          "role": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The role assigned to the user."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the request payload for creating a new user account."
+      },
+      "UploadResult": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "description": "Gets or sets the name of the uploaded file.",
+            "nullable": true
+          },
+          "totalRows": {
+            "type": "integer",
+            "description": "Gets or sets the total number of rows processed from the file.",
+            "format": "int32"
+          },
+          "failedRows": {
+            "type": "integer",
+            "description": "Gets or sets the number of rows that failed during processing.",
+            "format": "int32"
+          },
+          "skippedRows": {
+            "type": "integer",
+            "description": "Gets or sets the number of rows that were skipped during processing.",
+            "format": "int32"
+          },
+          "successfulRows": {
+            "type": "integer",
+            "description": "Gets or sets the number of rows successfully processed.",
+            "format": "int32"
+          },
+          "unresolvedRows": {
+            "type": "integer",
+            "description": "Gets or sets the number of rows that could not be resolved (e.g., unmatched clinician).",
+            "format": "int32"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or sets the list of errors encountered during processing.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the result of processing an uploaded CSV file."
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Enter JWT token",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
